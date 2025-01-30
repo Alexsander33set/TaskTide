@@ -1,4 +1,7 @@
-// import type { Metadata } from "next";
+"use client";
+import { SessionProvider } from "next-auth/react";
+import { Session } from "@/utils/types";
+
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import Footer from "@/components/layout/Footer";
@@ -9,28 +12,30 @@ const interSans = Inter({
 });
 
 
-export const metadata = {
-  title: 'TaskTide',
-  description: 'Manage your tasks efficiently with TaskTide',
-  image: '/logo.webp',
-};
+
 
 export default function RootLayout({
   children,
+  session,
 }: Readonly<{
   children: React.ReactNode;
+  session: Session;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${interSans} min-h-screen flex flex-col`}
-      >
-        <Navbar/>
-        <main className="flex-1">
-          {children}
+    // <SessionProvider>
+      <html lang="en">
+        <body
+          className={`${interSans} min-h-screen flex flex-col`}
+        >
+          <SessionProvider session={session}>
+          <Navbar/>
+          <main className="flex-1">
+            {children}
           </main>
-        <Footer/>
-      </body>
-    </html>
+          <Footer/>
+          </SessionProvider>
+        </body>
+      </html>
+    // </SessionProvider>
   );
 }

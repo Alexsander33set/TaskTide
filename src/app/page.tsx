@@ -1,6 +1,23 @@
+import type { Metadata } from "next";
+
 import Board from "@/components/Board";
 import Card from "@/components/Card";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: 'Homepage - TaskTide',
+  description: 'Manage your tasks efficiently with TaskTide',
+  openGraph: {
+    title: 'TaskTide',
+    description: 'Manage your tasks efficiently with TaskTide',
+    images: [
+      {
+        url: 'https://tasktide.com.br/favicon.ico',
+      },
+    ],
+  }
+};
+
 export default function Home() {
   return (
     <>
