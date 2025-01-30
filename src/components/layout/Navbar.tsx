@@ -13,7 +13,7 @@ export default function Navbar() {
       </div>
       <div className="flex items-center gap-2">
         <nav className="flex gap-4">
-          <Link href="/">Homem</Link>
+          <Link href="/">Home</Link>
           <Link href="/about">About</Link>
           <Link href="/">Link3</Link>
           <Link href="/">Link4</Link>
