@@ -1,0 +1,14 @@
+###* Login
+GET http://localhost:3000/api/auth/sigin HTTP/1.1
+
+###* Logout
+
+GET http://localhost:3000/api/auth/sigout HTTP/1.1
+
+###* Boards
+
+GET http://localhost:3000/api/boards HTTP/1.1
+
+###* Tasks
+
+POST http://localhost:3000/api/tasks HTTP/1.1
