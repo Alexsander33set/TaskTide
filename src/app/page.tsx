@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 
 import Board from "@/components/Board";
 import Card from "@/components/Card";
-import Image from "next/image";
 
 export const metadata: Metadata = {
   title: 'Homepage - TaskTide',
