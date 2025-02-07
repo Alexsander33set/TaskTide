@@ -9,8 +9,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: "jwt" },
   callbacks: {
     async signIn({ user }) {
-      if (process.env.NODE_ENV === "development") return true;
-
       try {
         const existingUser = await prisma.user.findUnique({
           where: { email: user.email! },
