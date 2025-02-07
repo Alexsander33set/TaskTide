@@ -1,4 +1,5 @@
-import LoginButton from "@/components/LoginButton";
+import { SignIn } from "@/components/SignIn";
+import { SignOut } from "@/components/SignOut";
 
 export default function About() {
   return (
@@ -8,7 +9,8 @@ export default function About() {
         <p className="text-center text-gray-600">About page</p>
       </section>
       <section className="m-6">
-        <LoginButton />
+        <SignOut />
+        <SignIn />
       </section>
     </>
   );
