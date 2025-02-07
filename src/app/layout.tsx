@@ -1,8 +1,17 @@
-"use client";
-
-import { SessionProvider } from "next-auth/react";
-
 import { Inter } from "next/font/google";
+
+
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+  title: 'TaskTide',
+  description: 'Manage your tasks efficiently with TaskTide',
+  openGraph: {
+    title: 'TaskTide',
+    description: 'Manage your tasks efficiently with TaskTide',
+    images: ['logo.png'],
+  }
+};
+
 import "@/styles/globals.css";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
@@ -11,10 +20,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <SessionProvider>
-      <html lang="en">
-        <body
-          className={`${inter.className} min-h-screen flex flex-col`}>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${inter.className} min-h-screen flex flex-col`}>
           <Navbar/>
           <main className="flex-1">
             {children}
@@ -22,6 +29,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer/>
         </body>
       </html>
-    </SessionProvider>
   );
 }
