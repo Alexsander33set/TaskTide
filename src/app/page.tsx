@@ -1,21 +1,7 @@
-import type { Metadata } from "next";
-
 import Board from "@/components/Board";
-import Card from "@/components/Card";
-
-export const metadata: Metadata = {
-  title: 'Homepage - TaskTide',
-  description: 'Manage your tasks efficiently with TaskTide',
-  openGraph: {
-    title: 'TaskTide',
-    description: 'Manage your tasks efficiently with TaskTide',
-    images: [
-      {
-        url: 'https://tasktide.com.br/favicon.ico',
-      },
-    ],
-  }
-};
+import { SignIn } from "@/components/SignIn";
+import { SignOut } from "@/components/SignOut";
+import UserAvatar from "@/components/Profile";
 
 export default function Home() {
   return (
@@ -26,7 +12,6 @@ export default function Home() {
       </section>
       <section className="m-6">
         <Board />
-        <Card />
       </section>
     </>
   );
