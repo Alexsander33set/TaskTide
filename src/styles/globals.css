@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 /* @import "tailwindcss/forms"; */
 :root {
   --background: #e6e6eb;
@@ -13,4 +14,27 @@ body {
 button
 {
   @apply cursor-pointer
+}
+
+
+/** ======================== User Page ========================*/
+
+button#profile-image-conteiner{
+  @apply grid place-items-center cursor-pointer rounded-full relative overflow-hidden;
+}
+
+button#profile-image-conteiner #profile-image{
+  @apply transition
+}
+
+button#profile-image-conteiner:hover #profile-image{
+  @apply brightness-50
+}
+
+button#profile-image-conteiner #profile-image-edit-icon{
+  @apply text-white transition-opacity absolute
+}
+
+button#profile-image-conteiner:not(:hover) #profile-image-edit-icon{
+  @apply opacity-0
 }

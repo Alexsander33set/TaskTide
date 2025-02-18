@@ -1,40 +1,64 @@
 import Image from "next/image";
-import { auth, signOut } from "@/auth"
-import Board from "@/components/Board";
-// import { SignOut } from "@/components/SignOut";
-
-let inputDisabledStyle = "border border-gray-400 p-1 rounded-md"
+import { auth, signOut } from "@/auth";
+import { prisma } from "@/prisma";
+import EditIcon from "@/components/icons/Edit";
 
 export default async function UserProfile() {
-  const session = await auth()
-  return (
-    <>
-      <section className=" m-4 mt-12 p-4 flex">
-        <div className="grid place-items-center gap-2">
-        <Image src={session?.user?.image!} alt="user profile image"
-          width={96} height={96} className="rounded-full"/>
+  const session = await auth();
+  if (!session?.user) return <p>You need to be signed in</p>;
 
-          {/* TODO: Add a button to change the profile image */}
-          <button className="border border-gray-300 py-1 px-2 rounded-md shadow-sm">
-            ✏️ Change Image
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email! },
+  });
+
+  //* Styles
+  let inputStyle = "border border-gray-400 p-1 rounded-md w-full placeholder:italic"
+  let centerDivStyle = "absolute min-h-1/2 left-1/2 top-1/2 -translate-1/2"
+  let centerChildrenStyle = "grid place-items-center"
+
+  return (
+    <section className={`${centerDivStyle} ${centerChildrenStyle} p-8 bg-white shadow rounded-xl`}>
+      <button id="profile-image-conteiner" aria-label="Edit profile image">
+        <Image id="profile-image"
+          src={user?.image ?? "/default-avatar.png"}
+          alt="User profile image"
+          width={128}
+          height={128}
+        />
+        <EditIcon id="profile-image-edit-icon" />
+      </button>
+      <div className="flex flex-col gap-3 min-w-[18vw]">
+        <label htmlFor="name-field">
+          Name
+          <input
+            id="name-field"
+            defaultValue={user?.name ?? ""}
+            type="text"
+            placeholder="Put your username here"
+            className={`${inputStyle}`}
+          />
+        </label>
+        <label htmlFor="email-field">
+          Email
+          <input
+            id="email-field"
+            value={user?.email ?? ""}
+            type="text"
+            disabled
+            className={`${inputStyle} text-gray-500 bg-gray-100 cursor-not-allowed`}
+          />
+        </label>
+        <span className="flex gap-4 justify-center">
+          <form action={async () => { "use server"; await signOut(); }}>
+            <button type="submit" className="text-red-600 py-1 px-2 rounded hover:bg-red-600 hover:text-white transition">
+              Sign Out
+            </button>
+          </form>
+          <button className="py-1 px-2 text-blue-500 hover:bg-blue-500 hover:text-white rounded transition">
+            Save Changes
           </button>
-        </div>
-        <div className="ml-8 flex-1 flex flex-col gap-2 text-gray-500">
-          <input value={session?.user?.name!} type="text" disabled
-            className={inputDisabledStyle}/>
-          <input value={session?.user?.email!} type="text" disabled
-            className={inputDisabledStyle} />
-          <form className="mt-6 flex gap-4"
-          action={async () => {
-            "use server"
-            await signOut()
-          }}
-        >
-          <button type="submit" className="bg-red-600 py-1 px-2 rounded-md text-white">Sign Out</button>
-          <button className="text-red-600">Delete everything stored about me</button>
-        </form>
-        </div>
-      </section>
-    </>
+        </span>
+      </div>
+    </section>
   );
 }
