@@ -1,11 +1,10 @@
-import { prisma } from "@/utils/db";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/utils/auth";
+import { prisma } from "@/prisma";
+import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 
 //* 🚀 [POST] - Create a new task in a specific column
 export async function POST(req: Request) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!session) return NextResponse.json({ error: "Not Authenticated" }, { status: 401 });
 
   const { content, columnId, color } = await req.json();
@@ -24,7 +23,7 @@ export async function POST(req: Request) {
 
 //* 🚀 [PATCH] - Move a task between columns
 export async function PATCH(req: Request) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!session) return NextResponse.json({ error: "Not Authenticated" }, { status: 401 });
 
   const { taskId, newColumnId } = await req.json();
@@ -40,7 +39,7 @@ export async function PATCH(req: Request) {
 
 //* 🚀 [DELETE] - Remove a task
 export async function DELETE(req: Request) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!session) return NextResponse.json({ error: "Not Authenticated" }, { status: 401 });
 
   const { taskId } = await req.json();
