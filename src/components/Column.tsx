@@ -1,4 +1,6 @@
+import { Plus } from "lucide-react";
 import Card from "./Card";
+import { Button } from "./ui/button";
 
 export default function Column({ title }: { title: string }) {
   return (
@@ -9,8 +11,11 @@ export default function Column({ title }: { title: string }) {
         <p>1 {/* Number of Cards on Column*/}</p>
       </div>
       {/* Cards */}
-      <div className="mt-4">
+      <div className="mt-4 flex flex-col gap-4">
         <Card/>
+        <Button variant={"outline"}>
+          <div className="inline-flex items-center gap-2"> <Plus />Add a Card</div>
+        </Button>
       </div>
     </div>
   );
