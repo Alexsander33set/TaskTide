@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import UserAvatar from "../Profile";
+import { Separator } from "@/components/ui/separator"
+import UserProfile from "../Profile";
 
 
 export default async function Navbar() {
@@ -13,13 +14,12 @@ export default async function Navbar() {
         </div>
       </Link>
       <div className="flex items-center gap-2">
-        <nav className="flex gap-4">
+        <nav>
           <Link href="/">Home</Link>
-          <Link href="/about">About</Link>
-          <Link href="/user">User</Link>
-          <Link href="/">Link4</Link>
+          <Link href="/boards">My Boards</Link>
         </nav>
-        <UserAvatar />
+        <Separator orientation="vertical" className="min-h-5" />
+        <UserProfile />
 
       </div>
     </section>
